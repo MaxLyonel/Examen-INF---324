@@ -1,0 +1,90 @@
+CREATE TABLE `bdvargasramirezleonel`.`usuario` 
+( `ci` INT(10) NOT NULL ,  
+`usuario` VARCHAR(50) NOT NULL ,  
+`password` VARCHAR(60) NOT NULL ,   
+`tipo` VARCHAR(30) NOT NULL, 
+PRIMARY KEY  (`ci`)
+) 
+ENGINE = InnoDB;
+
+INSERT INTO usuario (ci, usuario, password, tipo) VALUES (9101918, "leonel","123", "estudiante");
+INSERT INTO usuario (ci, usuario, password, tipo) VALUES (6514812, "maximo","321", "estudiante");
+INSERT INTO usuario (ci, usuario, password, tipo) VALUES (7811172, "vargas","333", "estudiante");
+INSERT INTO usuario (ci, usuario, password, tipo) VALUES (3451120, "ramirez","444", "docente");
+INSERT INTO usuario (ci, usuario, password, tipo) VALUES (2228611, "jose","555", "docente");
+INSERT INTO usuario (ci, usuario, password, tipo) VALUES (7331231, "juan","666", "estudiante");
+INSERT INTO usuario (ci, usuario, password, tipo) VALUES (1231123, "maria","777", "estudiante");
+INSERT INTO usuario (ci, usuario, password, tipo) VALUES (9176112, "ana","888", "estudiante");
+INSERT INTO usuario (ci, usuario, password, tipo) VALUES (7812172, "kevin","999", "estudiante");
+INSERT INTO usuario (ci, usuario, password, tipo) VALUES (7812311, "pepe","000", "estudiante");
+
+CREATE TABLE `bdvargasramirezleonel`.`estudiante` 
+( `ci` INT(10) NOT NULL , 
+`ru` INT(10) NOT NULL , 
+PRIMARY KEY (`ci`)
+) ENGINE = InnoDB;
+INSERT INTO estudiante (ci, ru) VALUES (9101918, 786);
+INSERT INTO estudiante (ci, ru) VALUES (6514812, 136);
+INSERT INTO estudiante (ci, ru) VALUES (7811172, 451);
+INSERT INTO estudiante (ci, ru) VALUES (7331231, 951);
+INSERT INTO estudiante (ci, ru) VALUES (1231123, 051);
+INSERT INTO estudiante (ci, ru) VALUES (9176112, 611);
+INSERT INTO estudiante (ci, ru) VALUES (7812172, 411);
+INSERT INTO estudiante (ci, ru) VALUES (7812311, 457);
+
+CREATE TABLE `bdvargasramirezleonel`.`nota` 
+( `id` INT(11) NOT NULL AUTO_INCREMENT ,  
+`nota1` INT(10) NOT NULL ,  `nota2` INT(10) NOT NULL ,  
+`nota3` INT(10) NOT NULL ,  `ci_estudiante` INT(10) NOT NULL ,    
+PRIMARY KEY  (`id`)
+) 
+ENGINE = InnoDB;
+
+INSERT INTO nota (nota1,nota2,nota3,notafinal,ci_estudiante) VALUES (65,78,51,65,9101918);
+INSERT INTO nota (nota1,nota2,nota3,notafinal,ci_estudiante) VALUES (33,58,81,57,6514812);
+INSERT INTO nota (nota1,nota2,nota3,notafinal,ci_estudiante) VALUES (23,49,82,75,7811172); // lo modificamos sin querer
+INSERT INTO nota (nota1,nota2,nota3,notafinal,ci_estudiante) VALUES (61,18,99,59,7331231);
+INSERT INTO nota (nota1,nota2,nota3,notafinal,ci_estudiante) VALUES (91,78,52,73,1231123);
+INSERT INTO nota (nota1,nota2,nota3,notafinal,ci_estudiante) VALUES (63,57,56,58,9176112);
+INSERT INTO nota (nota1,nota2,nota3,notafinal,ci_estudiante) VALUES (33,47,51,43,7812172);
+INSERT INTO nota (nota1,nota2,nota3,notafinal,ci_estudiante) VALUES (23,21,48,30,7812311);
+
+CREATE TABLE `bdvargasramirezleonel`.`persona` 
+( `ci` INT(10) NOT NULL ,  
+`nombre` VARCHAR(50) NOT NULL ,  
+`paterno` VARCHAR(50) NOT NULL ,  
+`materno` VARCHAR(50) NOT NULL ,  
+`fec_nac` VARCHAR(10) NOT NULL ,  
+`departamento` VARCHAR(3) NOT NULL ,    
+PRIMARY KEY  (`ci`)
+) 
+ENGINE = InnoDB;
+
+INSERT INTO persona (ci, nombre, paterno, materno, fec_nac, departamento) VALUES (9101918, "leonel","Vargas", "Ramirez","01/10/2021","01");
+INSERT INTO persona (ci, nombre, paterno, materno, fec_nac, departamento) VALUES (6514812, "Maximiliano","Flores", "Mamani","11/10/2021","03");
+INSERT INTO persona (ci, nombre, paterno, materno, fec_nac, departamento) VALUES (7811172, "Roberto","Quispe", "Huanca","21/10/2021","05");
+INSERT INTO persona (ci, nombre, paterno, materno, fec_nac, departamento) VALUES (7331231, "Juan","Guzman", "Prada","21/10/2021","05");
+INSERT INTO persona (ci, nombre, paterno, materno, fec_nac, departamento) VALUES (1231123, "Maria","Loayza", "Chuquimia","22/10/2021","03");
+INSERT INTO persona (ci, nombre, paterno, materno, fec_nac, departamento) VALUES (9176112, "Ana","Rivera", "Beltran","02/10/2021","05");
+INSERT INTO persona (ci, nombre, paterno, materno, fec_nac, departamento) VALUES (7812172, "Kevin","Rosales", "Huanca","21/10/2021","05");
+INSERT INTO persona (ci, nombre, paterno, materno, fec_nac, departamento) VALUES (7812311, "Jose","Quispe", "Quisbert","04/10/2021","01");
+INSERT INTO persona (ci, nombre, paterno, materno, fec_nac, departamento) VALUES (3451120, "Alison","Ramirez", "Velarde","01/10/2021","08");
+INSERT INTO persona (ci, nombre, paterno, materno, fec_nac, departamento) VALUES (2228611, "Yesenia","Gutierrez", "Zelada","01/10/2021","08");
+
+
+CREATE TABLE `bdvargasramirezleonel`.`docente` 
+( `ci` INT(10) NOT NULL ,  
+`nro_doc` INT(10) NOT NULL ,    
+PRIMARY KEY  (`ci`)
+) ENGINE = InnoDB;
+INSERT INTO docente (ci, nro_doc) VALUES (3451120, 3457);
+INSERT INTO docente (ci, nro_doc) VALUES (2228611, 1417);
+
+#########################################
+select p.departamento, avg(n.notafinal)
+from estudiante e, persona p, nota n
+where e.ci = p.ci
+and e.ci = n.ci_estudiante
+group by p.departamento
+#########################################
+
